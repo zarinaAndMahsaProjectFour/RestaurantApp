@@ -1,9 +1,9 @@
 //Create a namespace
-let app = {}
+let restaurantsApp = {}
 //Store API key
-app.apiKey = '2-RCWO0-I-9m7PMN2zt0fcZ45itXKXWRfnBQtimCYUjh2skNC9-_CAF_SJdwlTkeymvzhlzSyQFDz0kih-S3Cjz1JIxklzgXrnO-YySwD4ThKeBFlskagdf0JeeVXnYx';
+restaurantsApp.apiKey = '2-RCWO0-I-9m7PMN2zt0fcZ45itXKXWRfnBQtimCYUjh2skNC9-_CAF_SJdwlTkeymvzhlzSyQFDz0kih-S3Cjz1JIxklzgXrnO-YySwD4ThKeBFlskagdf0JeeVXnYx';
 //Retrieve restaurant ID's 
-app.getRestaurantIDs = (searchTerm, searchLocation) => {
+restaurantsApp.getRestaurantIDs = (searchTerm, searchLocation) => {
     $.ajax({
         //We need the first link in order to bypass CORS policy issues
         url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search",
@@ -12,7 +12,7 @@ app.getRestaurantIDs = (searchTerm, searchLocation) => {
             "accept": "application/json",
             "x-requested-with": "xmlhttprequest",
             "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${app.apiKey}`
+            "Authorization": `Bearer ${restaurantsApp.apiKey}`
         },
         data: {
             term: searchTerm,
@@ -30,12 +30,12 @@ app.getRestaurantIDs = (searchTerm, searchLocation) => {
     });
 
 }
-app.init = function () {
-app.getRestaurantIDs('Chicken', 'Toronto')
+restaurantsApp.init = function () {
+    restaurantsApp.getRestaurantIDs('Chicken', 'Toronto')
 
 }
 
 
 $(function() {
-app.init()
+    restaurantsApp.init()
 });
