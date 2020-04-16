@@ -28,8 +28,10 @@ restaurantsApp.displayRestaurantDetails = function(result) {
 }
 
 
+
 //Retrieve restaurant ID's 
 restaurantsApp.getRestaurantIDs = (searchTerm, searchLocation) => {
+    
     $.ajax({
         //We need the first link in order to bypass CORS policy issues
         url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search",
@@ -42,19 +44,53 @@ restaurantsApp.getRestaurantIDs = (searchTerm, searchLocation) => {
         },
         data: {
             term: searchTerm,
-            location: searchLocation
+            location: searchLocation,
+            limit: 3,
         }
     }).then(function (result) {
-        restaurantsApp.displayRestaurantDetails(result)        
-    });
+        // Put the results on the page
+        restaurantsApp.displayRestaurantDetails(result)
 
+        // Keep track of all business IDs
+        businessIDs = []
+        result.businesses.forEach(function(item){
+            businessIDs.push(item.id);
+        });
+
+        // Get reviews and put them on the page
+        restaurantsApp.getReviews(businessIDs)
+        
+    });
 }
+
+
+restaurantsApp.getReviews=function(businessIDs){
+    // for each business ID retrieved from businessID array make an ajax call and then push the result in to businessReview array
+    businessIDs.forEach(function(item){
+        businessReviews = []
+        console.log(item)
+        $.ajax({
+            url: `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${item}/reviews`,
+            method: "GET",
+            headers: {
+            "accept": "application/json",
+            "x-requested-with": "xmlhttprequest",
+            "Access-Control-Allow-Origin": "*",
+            "Authorization": `Bearer ${restaurantsApp.apiKey}`
+            },
+            data: {}
+        }).then(function(result){
+            businessReviews.push(result.reviews)
+            console.log(businessReviews)
+        })
+    })
+}
+
 restaurantsApp.init = function () {
     restaurantsApp.getRestaurantIDs('Chicken', 'Toronto')
-
 }
 
 
 $(function() {
     restaurantsApp.init()
-});
+})
