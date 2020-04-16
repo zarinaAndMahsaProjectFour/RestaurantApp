@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food App</title>
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
     <header class="wrapper">
-        <h1>Hungry? Take a look at what's nearby</h1>
+        <!-- This <br> is just temporary while I figure out another way to break this line -->
+        <h1>Hungry? <br>Take a look at what's nearby</h1>
     </header>
     <main>
         <form class= "form wrapper">
@@ -18,14 +21,15 @@
             <label for="termInput">Enter the type of restaurant or cuisine you're craving</label>
             <input type="text" id="termInput" name="termInput"> 
 
-            <button type="submit">submit</button>
+            <button type="submit">Let's eat!</button>
         </form>
         <section class="restaurantList wrapper">
             <div>
                 <img src="https://picsum.photos/300/500">
-                <p>
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio nulla hic magnam ipsam explicabo mollitia obcaecati consequatur maiores! Beatae culpa obcaecati maxime! Incidunt natus qui repellat modi iusto suscipit! Quasi."
-                </p>
+                <h2>32 Chicken St.</h2>
+                <span>4.5</span>
+                <span><i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i></span>
+                <h3>409 College Street, Toronto, ON M5T 1T1</h3>
             </div>
             <div>
                 <img src="https://picsum.photos/300/500">
