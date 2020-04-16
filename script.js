@@ -28,7 +28,7 @@ restaurantsApp.getRestaurantIDs = (searchTerm, searchLocation) => {
         }
     }).then(function (result) {
         console.log(result)
-        // result.bussinesses is an array on bussinesses that can be looped through with forEach method ,then for each business object the info are stored in respective array
+        // result.bussinesses is an array that can be looped through with forEach method and for each business object (item) the info are stored in respective array
         result.businesses.forEach(function(item){
 
              restaurantsApp.businessID.push(item.id)
@@ -38,12 +38,15 @@ restaurantsApp.getRestaurantIDs = (searchTerm, searchLocation) => {
              restaurantsApp.businessAddress.push(item.location.display_address) 
           
     }); 
+    // getReviews function is called after the first call is complete.
     restaurantsApp.getReviews()
 })
 
 }
 restaurantsApp.getReviews=function(){
+    // for each business ID retrieved from businessID array make an ajax call and then push the result in to businessReview array
     restaurantsApp.businessID.forEach(function(item){
+        
         console.log(item)
         $.ajax({
             url: `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${item}/reviews`,
