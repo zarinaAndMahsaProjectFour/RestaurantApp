@@ -23,9 +23,11 @@ restaurantsApp.getRestaurantIDs = (searchTerm, searchLocation) => {
         for (let i = 0; i < 3; i++) {
             let businessID = result.businesses[i].id
             let businessName = result.businesses[i].name
+            let businessImage = result.businesses[i].image_url
             let businessRating = result.businesses[i].rating
             let businessPrice = result.businesses[i].price
             let businessAddress = result.businesses[i].location.display_address
+            console.log(businessName, businessRating, businessPrice, businessAddress)
         }
     });
 
