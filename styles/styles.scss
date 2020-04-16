@@ -1,26 +1,89 @@
-.wrapper{
+@import 'setup';
+html {
+    font-size: 18px;
+}
+
+body {
+    background-image: url(../assets/food.png);
+}
+.wrapper {
     max-width: 1200px;
     width: 80%;
     margin: 0 auto;
 }
-header{
+header {
     text-align: center;
     h1{
         margin: 30px 0;
+        font-family: 'Lobster', cursive;
+        font-size: 5rem;
+        color: #F22B29;
+        backdrop-filter: sepia(0.5)
     }
 }
-form{
+
+form.wrapper {
+    margin-bottom: 50px;;
+}
+
+form {
+    padding: 10px;;
+    text-align: center;
+    backdrop-filter: sepia(0.5);
     
     input{
         display: block;
-        width:400px;
+        width:50%;
+        margin: 10px auto;
+        border: transparent;
     }
     label{
         display: block;
-        margin-top: 20px;
-        margin-bottom: 5px;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        color: #54494B;
     }
     button{
-        margin-top:20px ;
+        margin-top:10px;
+        width: 25%;
+        height: 50px;
+        font-family: 'Lobster', cursive;
+        font-size: 2rem;
+        color: #54494B;
+        background-color: #EF8354;
+        border: transparent;
+    }
+}
+
+.restaurantList { 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
+
+    div {
+        backdrop-filter: sepia(0.5)
+    }
+
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+    h2 {
+        font-family: 'Lobster', cursive;
+        font-size: 2rem;
+        color: #F22B29;
+        text-align: center;
+    }
+
+    i {
+        color: #30C16D;
+    }
+
+    span, h3 {
+        font-family: 'Open Sans', sans-serif;
+        color: #54494B;
+        size: 1rem;
     }
 }
