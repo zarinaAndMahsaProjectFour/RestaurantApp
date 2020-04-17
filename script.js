@@ -64,6 +64,17 @@ restaurantsApp.getRestaurantIDs = (searchTerm, searchLocation) => {
     });
 }
 
+// Use the GeoLocation-DB API to get the user's city
+restaurantsApp.getCity = async function() {
+    // wait for the result to come back (promise)
+    let location = await $.ajax({
+        url: "https://geolocation-db.com/jsonp",
+        jsonpCallback: "callback",
+        dataType: "jsonp"
+    });
+
+    return location.city;
+}
 
 restaurantsApp.getReviews=function(businessIDs){
     // for each business ID retrieved from businessID array make an ajax call and then push the result in to businessReview array
@@ -99,6 +110,10 @@ restaurantsApp.init = function () {
 }
 
 
-$(function() {
+$(async function() {
     restaurantsApp.init()
+
+    // Get user city and populate the locationTerm input
+    let userCity = await restaurantsApp.getCity();
+    $('#locationInput').val(userCity)
 })
