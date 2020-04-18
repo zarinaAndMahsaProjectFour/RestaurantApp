@@ -248,15 +248,12 @@ header h1 {
           backdrop-filter: sepia(0.5);
 }
 
-form.wrapper {
-  margin-bottom: 50px;
-}
-
 form {
   padding: 10px;
   text-align: center;
   -webkit-backdrop-filter: sepia(0.5);
           backdrop-filter: sepia(0.5);
+  margin-bottom: 50px;
 }
 
 form input {
@@ -284,40 +281,51 @@ form button {
   border: transparent;
 }
 
-.restaurantList {
+.restaurantList .unhidden {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
   -webkit-column-gap: 10px;
           column-gap: 10px;
+  row-gap: 10px;
+  width: auto;
+  -webkit-transition: width 2s;
+  transition: width 2s;
 }
 
-.restaurantList div {
+.restaurantList .unhidden div {
   -webkit-backdrop-filter: sepia(0.5);
           backdrop-filter: sepia(0.5);
 }
 
-.restaurantList img {
+.restaurantList .unhidden img {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
 }
 
-.restaurantList h2 {
+.restaurantList .unhidden h2 {
   font-family: 'Lobster', cursive;
   font-size: 2rem;
   color: #F22B29;
   text-align: center;
 }
 
-.restaurantList i {
+.restaurantList .unhidden i {
   color: #30C16D;
 }
 
-.restaurantList span, .restaurantList h3 {
+.restaurantList .unhidden span, .restaurantList .unhidden h3 {
   font-family: 'Open Sans', sans-serif;
   color: #54494B;
   size: 1rem;
+}
+
+.restaurantList .hidden {
+  display: none;
+  width: 0;
 }
