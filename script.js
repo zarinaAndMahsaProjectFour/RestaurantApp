@@ -98,7 +98,7 @@ restaurantsApp.getReviews=function(businessIDs){
     })
 }
 
-restaurantsApp.init = function () {
+restaurantsApp.init = async function () {
     //set up event listener to accept user input
     $('form').on('submit', function (e) {
         e.preventDefault();
@@ -107,13 +107,12 @@ restaurantsApp.init = function () {
 
         restaurantsApp.getRestaurantIDs(termInput, locationInput)
     })
-}
-
-
-$(async function() {
-    restaurantsApp.init()
-
     // Get user city and populate the locationTerm input
     let userCity = await restaurantsApp.getCity();
     $('#locationInput').val(userCity)
+}
+
+
+$(function() {
+    restaurantsApp.init()
 })
