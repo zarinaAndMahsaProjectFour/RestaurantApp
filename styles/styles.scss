@@ -53,7 +53,7 @@ form {
     }
 }
 
-.restaurantList .unhidden { 
+.restaurantList{ 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -88,9 +88,4 @@ form {
         color: #54494B;
         size: 1rem;
     }
-}
-.restaurantList .hidden{
-    display: none;
-    width: 0;
-    
 }
