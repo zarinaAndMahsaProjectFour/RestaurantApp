@@ -3,6 +3,7 @@ let restaurantsApp = {}
 //Store API key
 restaurantsApp.apiKey = '2-RCWO0-I-9m7PMN2zt0fcZ45itXKXWRfnBQtimCYUjh2skNC9-_CAF_SJdwlTkeymvzhlzSyQFDz0kih-S3Cjz1JIxklzgXrnO-YySwD4ThKeBFlskagdf0JeeVXnYx';
 
+
 restaurantsApp.displayRestaurantDetails = function(result) {
     //Empty restaurantList so we can append results each time
     $('.restaurantList').empty()
@@ -86,8 +87,17 @@ restaurantsApp.getReviews=function(businessIDs){
     })
 }
 
+restaurantsApp.handleSearch = function (e) {
+    e.preventDefault();
+    let locationInput = $('#locationInput').val().trim(' ');
+    let termInput = $('#termInput').val().trim(' ');
+
+    restaurantsApp.getRestaurantIDs(termInput, locationInput);
+}
+
 restaurantsApp.init = function () {
-    restaurantsApp.getRestaurantIDs('Chicken', 'Toronto')
+    //set up event listener to accept user input
+    $('form').on('submit', restaurantsApp.handleSearch);
 }
 
 
