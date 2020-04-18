@@ -98,20 +98,22 @@ restaurantsApp.getReviews=function(businessIDs){
     })
 }
 
+restaurantsApp.handleSearch = function (e) {
+    e.preventDefault();
+    let locationInput = $('#locationInput').val().trim(' ');
+    let termInput = $('#termInput').val().trim(' ');
+
+    restaurantsApp.getRestaurantIDs(termInput, locationInput);
+}
+
 restaurantsApp.init = async function () {
     //set up event listener to accept user input
-    $('form').on('submit', function (e) {
-        e.preventDefault();
-        let locationInput = $('#locationInput').val().trim(' ');
-        let termInput = $('#termInput').val().trim(' ');
-
-        restaurantsApp.getRestaurantIDs(termInput, locationInput)
-    })
+    $('form').on('submit', restaurantsApp.handleSearch);
+  
     // Get user city and populate the locationTerm input
     let userCity = await restaurantsApp.getCity();
     $('#locationInput').val(userCity)
 }
-
 
 $(function() {
     restaurantsApp.init()
