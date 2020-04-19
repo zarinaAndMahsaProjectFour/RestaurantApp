@@ -63,12 +63,12 @@ restaurantsApp.getCity = async function() {
     return location.city;
 }
 
-restaurantsApp.displayRestaurantDetails = function(result, n) {
+restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
     
-    if(n==0){
+    if(addedResults==0){
     $('.restaurantList').empty()
     //This takes the first three results, can be changed later
-    for (let i = n; i < n + 6; i++) {
+    for (let i = addedResults; i < addedResults + 6; i++) {
         let businessID = result.businesses[i].id
         let businessName = result.businesses[i].name
         let businessImage = result.businesses[i].image_url
@@ -87,7 +87,7 @@ restaurantsApp.displayRestaurantDetails = function(result, n) {
         $('.restaurantList').append(html)
     }}
     else{
-       for (let i = n; i < n + 6; i++) {
+       for (let i = addedResults; i < addedResults + 6; i++) {
         let businessID = result.businesses[i].id
         let businessName = result.businesses[i].name
         let businessImage = result.businesses[i].image_url
@@ -108,13 +108,12 @@ restaurantsApp.displayRestaurantDetails = function(result, n) {
 }
 
 restaurantsApp.showMore = function(result){
-
-    let n=0;
+    let addedResults=0;
     
     $(window).on("scroll", function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            n=n+6
-            restaurantsApp.displayRestaurantDetails(result, n)
+            addedResults=addedResults+6
+            restaurantsApp.displayRestaurantDetails(result, addedResults)
         }
     });
     }
