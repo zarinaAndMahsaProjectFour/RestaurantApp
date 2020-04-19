@@ -22,14 +22,12 @@ header {
     }
 }
 
-form.wrapper {
-    margin-bottom: 50px;;
-}
 
 form {
     padding: 10px;;
     text-align: center;
     backdrop-filter: sepia(0.5);
+    margin-bottom: 50px;;
     
     input{
         display: block;
@@ -55,10 +53,14 @@ form {
     }
 }
 
-.restaurantList { 
+.restaurantList{ 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     column-gap: 10px;
+    row-gap: 10px;
+    width: auto;
+    transition: width 2s;
 
     div {
         backdrop-filter: sepia(0.5)

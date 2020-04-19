@@ -248,15 +248,12 @@ header h1 {
           backdrop-filter: sepia(0.5);
 }
 
-form.wrapper {
-  margin-bottom: 50px;
-}
-
 form {
   padding: 10px;
   text-align: center;
   -webkit-backdrop-filter: sepia(0.5);
           backdrop-filter: sepia(0.5);
+  margin-bottom: 50px;
 }
 
 form input {
@@ -289,8 +286,14 @@ form button {
   display: grid;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
   -webkit-column-gap: 10px;
           column-gap: 10px;
+  row-gap: 10px;
+  width: auto;
+  -webkit-transition: width 2s;
+  transition: width 2s;
 }
 
 .restaurantList div {
