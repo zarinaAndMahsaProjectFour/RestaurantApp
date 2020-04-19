@@ -54,8 +54,8 @@ restaurantsApp.getReviews=function(result){
 
 restaurantsApp.displayRestaurantDetails = function(result) {
   
-    $('.ListOne').empty()
-    //This takes the first three results, can be changed later
+    $('.list.one').empty()
+    //This takes the first six results
     for (let i = 0; i < 6; i++) {
         let businessID = result.businesses[i].id
         let businessName = result.businesses[i].name
@@ -72,11 +72,11 @@ restaurantsApp.displayRestaurantDetails = function(result) {
                 <h3>${businessAddress}</h3>
                 </div>`
         //Displays each result to the page
-        $('.listOne').append(html)
+        $('.list.one').append(html)
     }
 
-    $('.ListTwo').empty()
-    //This takes the first three results, can be changed later
+    $('.list.two').empty()
+    //This takes the second six results
     for (let i = 6; i < 12; i++) {
         let businessID = result.businesses[i].id
         let businessName = result.businesses[i].name
@@ -93,7 +93,7 @@ restaurantsApp.displayRestaurantDetails = function(result) {
                 <h3>${businessAddress}</h3>
                 </div>`
         //Displays each result to the page
-        $('.listTwo').append(html)
+        $('.list.two').append(html)
     } 
         
 }
@@ -105,7 +105,7 @@ restaurantsApp.showMore=function(){
 
     function showDivs(n) {
         let i;
-        let x = $(".restaurantList");
+        let x = $(".list");
         console.log(x)
         if (n > x.length) {slideIndex = 1}
         if (n < 1) {slideIndex = x.length} ;

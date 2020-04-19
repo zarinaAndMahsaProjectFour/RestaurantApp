@@ -249,7 +249,7 @@ header h1 {
 }
 
 form {
-  padding: 10px;
+  padding: 20px;
   text-align: center;
   -webkit-backdrop-filter: sepia(0.5);
           backdrop-filter: sepia(0.5);
@@ -282,6 +282,24 @@ form button {
 }
 
 .restaurantList {
+  position: relative;
+}
+
+.restaurantList button {
+  position: absolute;
+}
+
+.restaurantList button.right {
+  right: -10px;
+  top: 50%;
+}
+
+.restaurantList button.left {
+  left: -10px;
+  top: 50%;
+}
+
+.restaurantList .list {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
@@ -296,30 +314,30 @@ form button {
   transition: width 2s;
 }
 
-.restaurantList div {
+.restaurantList .list div {
   -webkit-backdrop-filter: sepia(0.5);
           backdrop-filter: sepia(0.5);
 }
 
-.restaurantList img {
+.restaurantList .list img {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
 }
 
-.restaurantList h2 {
+.restaurantList .list h2 {
   font-family: 'Lobster', cursive;
   font-size: 2rem;
   color: #F22B29;
   text-align: center;
 }
 
-.restaurantList i {
+.restaurantList .list i {
   color: #30C16D;
 }
 
-.restaurantList span, .restaurantList h3 {
+.restaurantList .list span, .restaurantList .list h3 {
   font-family: 'Open Sans', sans-serif;
   color: #54494B;
   size: 1rem;
