@@ -16,10 +16,10 @@
     <main>
         <form class= "form wrapper">
             <label for="locationInput">Enter the city or the area of your interest</label>
-            <input type="text" id="locationInput" name="locationInput">
+            <input type="text" id="locationInput" name="locationInput" required pattern="[\s\S]*\S[\s\S]*">
 
             <label for="termInput">Enter the type of restaurant or cuisine you're craving</label>
-            <input type="text" id="termInput" name="termInput"> 
+            <input type="text" id="termInput" name="termInput" required pattern="[\s\S]*\S[\s\S]*"> 
 
             <button type="submit">Let's eat!</button>
         </form>

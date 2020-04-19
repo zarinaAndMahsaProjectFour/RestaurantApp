@@ -3,7 +3,34 @@ let restaurantsApp = {}
 //Store API key
 restaurantsApp.apiKey = '2-RCWO0-I-9m7PMN2zt0fcZ45itXKXWRfnBQtimCYUjh2skNC9-_CAF_SJdwlTkeymvzhlzSyQFDz0kih-S3Cjz1JIxklzgXrnO-YySwD4ThKeBFlskagdf0JeeVXnYx';
 
-//Retrieve restaurant Info
+
+restaurantsApp.displayRestaurantDetails = function(result) {
+    //Empty restaurantList so we can append results each time
+    $('.restaurantList').empty()
+    //This takes the first three results, can be changed later
+    for (let i = 0; i < 3; i++) {
+        let businessID = result.businesses[i].id
+        let businessName = result.businesses[i].name
+        let businessImage = result.businesses[i].image_url
+        let businessRating = result.businesses[i].rating
+        let businessPrice = result.businesses[i].price
+        let businessAddress = result.businesses[i].location.display_address
+
+        let html = `<div>
+                <img src="${businessImage}">
+                <h2>${businessName}</h2>
+                <span>${businessRating}</span>
+                <span><i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i></span> 
+                <h3>${businessAddress}</h3>
+                </div>`
+        //Displays each result to the page
+        $('.restaurantList').append(html)
+    }
+}
+
+
+
+//Retrieve restaurant ID's 
 restaurantsApp.getRestaurants = (searchTerm, searchLocation) => {
     
     $.ajax({
@@ -30,6 +57,17 @@ restaurantsApp.getRestaurants = (searchTerm, searchLocation) => {
         })   
     }
 
+// Use the GeoLocation-DB API to get the user's city
+restaurantsApp.getCity = async function() {
+    // wait for the result to come back (promise)
+    let location = await $.ajax({
+        url: "https://geolocation-db.com/jsonp",
+        jsonpCallback: "callback",
+        dataType: "jsonp"
+    });
+
+    return location.city;
+}
 
 restaurantsApp.getReviews=function(result){
     // for each business ID retrieved from businessID array make an ajax call and then push the result in to businessReview array
@@ -98,7 +136,7 @@ restaurantsApp.displayRestaurantDetails = function(result) {
         
 }
 
-restaurantsApp.showMore=function(){
+restaurantsApp.showMore = function(){
     
     let slideIndex = 1;
     showDivs(slideIndex);
@@ -123,11 +161,27 @@ restaurantsApp.showMore=function(){
     })
 
 }
-restaurantsApp.init = function () {
-    restaurantsApp.getRestaurants('Chicken', 'northyork ontario')
-    restaurantsApp.showMore()
+
+restaurantsApp.handleSearch = function (e) {
+    e.preventDefault();
+    let locationInput = $('#locationInput').val().trim(' ');
+    let termInput = $('#termInput').val().trim(' ');
+
+    restaurantsApp.getRestaurantIDs(termInput, locationInput);
 }
 
+restaurantsApp.init = async function () {
+
+    restaurantsApp.getRestaurants('Chicken', 'northyork ontario')
+    restaurantsApp.showMore()
+
+    //set up event listener to accept user input
+    $('form').on('submit', restaurantsApp.handleSearch);
+
+    // Get user city and populate the locationTerm input
+    let userCity = await restaurantsApp.getCity();
+    $('#locationInput').val(userCity)
+}
 
 $(function() {
     restaurantsApp.init()
