@@ -24,7 +24,7 @@ header {
 
 
 form {
-    padding: 10px;;
+    padding: 20px;
     text-align: center;
     backdrop-filter: sepia(0.5);
     margin-bottom: 50px;;
@@ -92,5 +92,10 @@ form {
         font-family: 'Open Sans', sans-serif;
         color: #54494B;
         size: 1rem;
+        display: block;
+        padding: 5px 0;
     }
+
+
+
 }
