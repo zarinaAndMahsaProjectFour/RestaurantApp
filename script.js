@@ -15,13 +15,16 @@ restaurantsApp.displayRestaurantDetails = function(result) {
         let businessRating = result.businesses[i].rating
         let businessPrice = result.businesses[i].price
         let businessAddress = result.businesses[i].location.display_address
+        console.log(result.businesses[i]);
 
         let html = `<div>
                 <img src="${businessImage}">
+                <div class="restaurantInfo">
                 <h2>${businessName}</h2>
                 <span>${businessRating}</span>
                 <span><i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i></span> 
                 <h3>${businessAddress}</h3>
+                </div>
                 </div>`
         //Displays each result to the page
         $('.restaurantList').append(html)
@@ -101,13 +104,24 @@ restaurantsApp.displayRestaurantDetails = function(result) {
         let businessRating = result.businesses[i].rating
         let businessPrice = result.businesses[i].price
         let businessAddress = result.businesses[i].location.display_address
+        console.log(businessPrice)
+        console.log(result.businesses[i]);
+
+        let priceString = ""
+        if (businessPrice !== undefined) {
+            for (let i = 0; i < businessPrice.length; i++) {
+                priceString += `<i class="fas fa-dollar-sign"></i>`
+            }
+        }
 
         let html = `<div>
                 <img src="${businessImage}">
+                <div class="restaurantInfo">
                 <h2>${businessName}</h2>
                 <span>${businessRating}</span>
-                <span><i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i></span> 
+                <span>${priceString}</span> 
                 <h3>${businessAddress}</h3>
+                </div>
                 </div>`
         //Displays each result to the page
         $('.listOne').append(html)
@@ -121,14 +135,26 @@ restaurantsApp.displayRestaurantDetails = function(result) {
         let businessImage = result.businesses[i].image_url
         let businessRating = result.businesses[i].rating
         let businessPrice = result.businesses[i].price
+        console.log(businessPrice)
         let businessAddress = result.businesses[i].location.display_address
+        console.log(result.businesses[i]);
+
+        let priceString = ""
+        if (businessPrice !== undefined) {
+            
+            for (let i = 0; i < businessPrice.length; i++) {
+                priceString += `<i class="fas fa-dollar-sign"></i>`
+            }
+        }
 
         let html = `<div>
                 <img src="${businessImage}">
+                <div class="restaurantInfo">
                 <h2>${businessName}</h2>
                 <span>${businessRating}</span>
-                <span><i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i></span> 
+                <span>${priceString}</span> 
                 <h3>${businessAddress}</h3>
+                </div>
                 </div>`
         //Displays each result to the page
         $('.listTwo').append(html)
@@ -167,7 +193,7 @@ restaurantsApp.handleSearch = function (e) {
     let locationInput = $('#locationInput').val().trim(' ');
     let termInput = $('#termInput').val().trim(' ');
 
-    restaurantsApp.getRestaurantIDs(termInput, locationInput);
+    restaurantsApp.getRestaurants(termInput, locationInput);
 }
 
 restaurantsApp.init = async function () {

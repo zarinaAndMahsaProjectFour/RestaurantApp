@@ -257,6 +257,7 @@ form {
 }
 
 form input {
+  padding: 10px;
   display: block;
   width: 50%;
   margin: 10px auto;
@@ -299,6 +300,10 @@ form button {
 .restaurantList div {
   -webkit-backdrop-filter: sepia(0.5);
           backdrop-filter: sepia(0.5);
+}
+
+.restaurantList .restaurantInfo {
+  padding: 15px;
 }
 
 .restaurantList img {

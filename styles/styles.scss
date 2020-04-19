@@ -30,6 +30,7 @@ form {
     margin-bottom: 50px;;
     
     input{
+        padding: 10px;
         display: block;
         width:50%;
         margin: 10px auto;
@@ -64,6 +65,10 @@ form {
 
     div {
         backdrop-filter: sepia(0.5)
+    }
+
+    .restaurantInfo {
+        padding:15px;
     }
 
     img {
