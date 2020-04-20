@@ -13,6 +13,10 @@ body {
 }
 header {
     text-align: center;
+
+    span {
+        display: block;
+    }
     h1{
         margin: 30px 0;
         font-family: 'Lobster', cursive;
@@ -76,6 +80,29 @@ form {
         padding:15px;
     }
 
+    .imageWrapper {
+        overflow: hidden;
+    }
+    
+    .imageWrapper p {
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translateX(-50%) translateY(-50%);
+        font-family: 'Open Sans', sans-serif;
+        color:white;
+        display: none;
+    }
+
+    .imageWrapper:hover p {
+        display: block;
+    }
+
+    .fa-drumstick-bite {
+        font-size: 3rem;
+        color: #30C16D;
+    }
+
     img {
         display: block;
         margin-left: auto;
@@ -83,6 +110,11 @@ form {
         height:100%;
         width:100%;
     }
+
+    .imageWrapper:hover img {
+        filter: blur(5px) grayscale(1) brightness(50%);
+    }
+
     h2 {
         font-family: 'Lobster', cursive;
         font-size: 2rem;
@@ -90,9 +122,14 @@ form {
         text-align: center;
     }
 
-    i {
+    .fa-star {
+        color: #EF8354;
+    }
+
+    .fa-dollar-sign {
         color: #30C16D;
     }
+
 
     span, h3 {
         font-family: 'Open Sans', sans-serif;

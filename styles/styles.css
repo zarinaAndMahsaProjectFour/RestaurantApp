@@ -239,6 +239,10 @@ header {
   text-align: center;
 }
 
+header span {
+  display: block;
+}
+
 header h1 {
   margin: 30px 0;
   font-family: 'Lobster', cursive;
@@ -313,12 +317,41 @@ form button {
   padding: 15px;
 }
 
+.restaurantList .imageWrapper {
+  overflow: hidden;
+}
+
+.restaurantList .imageWrapper p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  display: none;
+}
+
+.restaurantList .imageWrapper:hover p {
+  display: block;
+}
+
+.restaurantList .fa-drumstick-bite {
+  font-size: 3rem;
+  color: #30C16D;
+}
+
 .restaurantList img {
   display: block;
   margin-left: auto;
   margin-right: auto;
   height: 100%;
   width: 100%;
+}
+
+.restaurantList .imageWrapper:hover img {
+  -webkit-filter: blur(5px) grayscale(1) brightness(50%);
+          filter: blur(5px) grayscale(1) brightness(50%);
 }
 
 .restaurantList h2 {
@@ -328,7 +361,11 @@ form button {
   text-align: center;
 }
 
-.restaurantList i {
+.restaurantList .fa-star {
+  color: #EF8354;
+}
+
+.restaurantList .fa-dollar-sign {
   color: #30C16D;
 }
 
