@@ -92,6 +92,7 @@ restaurantsApp.displayRestaurantDetails = function(result) {
         //Displays each result to the page
         $('.listOne').append(html)
     }
+}
 
 // Use the GeoLocation-DB API to get the user's city
 restaurantsApp.getCity = async function() {
@@ -160,16 +161,17 @@ restaurantsApp.showMore = function(result){
             restaurantsApp.displayRestaurantDetails(result, addedResults)
         }
     });
-    }
+}
 
 restaurantsApp.handleSearch = function () {
-    $('form').on('submit', function(e){
-    e.preventDefault();
-    let locationInput = $('#locationInput').val().trim(' ');
-    let termInput = $('#termInput').val().trim(' ');
-    //  Get user city and populate the locationTerm input
-    restaurantsApp.getRestaurants(termInput, locationInput);
-});
+        $('form').on('submit', function(e){
+        e.preventDefault();
+        let locationInput = $('#locationInput').val().trim(' ');
+        let termInput = $('#termInput').val().trim(' ');
+        //  Get user city and populate the locationTerm input
+        restaurantsApp.getRestaurants(termInput, locationInput);
+    });
+}
 
 restaurantsApp.init = async function () {
 
