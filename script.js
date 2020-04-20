@@ -3,9 +3,9 @@ let restaurantsApp = {}
 //Store API key
 restaurantsApp.apiKey = '2-RCWO0-I-9m7PMN2zt0fcZ45itXKXWRfnBQtimCYUjh2skNC9-_CAF_SJdwlTkeymvzhlzSyQFDz0kih-S3Cjz1JIxklzgXrnO-YySwD4ThKeBFlskagdf0JeeVXnYx';
 
-
 //Retrieve restaurant ID's 
 restaurantsApp.getRestaurants = (searchTerm, searchLocation) => {
+
     
     $.ajax({
         //We need the first link in order to bypass CORS policy issues
@@ -20,29 +20,16 @@ restaurantsApp.getRestaurants = (searchTerm, searchLocation) => {
         data: {
             term: searchTerm,
             location: searchLocation,
-            limit: 12,
+            limit: 24,
         }
     }).then(function (result) {
         // Put the results on the page
-        restaurantsApp.displayRestaurantDetails(result)
-
+        restaurantsApp.displayRestaurantDetails(result, 0)
         restaurantsApp.getReviews(result)
+        restaurantsApp.showMore(result)
      
         })   
     }
-
-// Use the GeoLocation-DB API to get the user's city
-restaurantsApp.getCity = async function() {
-    // wait for the result to come back (promise)
-    let location = await $.ajax({
-        url: "https://geolocation-db.com/jsonp",
-        jsonpCallback: "callback",
-        dataType: "jsonp"
-    });
-
-    return location.city;
-}
-
 restaurantsApp.getReviews=function(result){
     // for each business ID retrieved from businessID array make an ajax call and then push the result in to businessReview array
     for (let i = 0; i < 6; i++) {
@@ -63,6 +50,7 @@ restaurantsApp.getReviews=function(result){
             console.log(businessReviews)
         })
     }}
+
 
 restaurantsApp.displayRestaurantDetails = function(result) {
   
@@ -105,9 +93,26 @@ restaurantsApp.displayRestaurantDetails = function(result) {
         $('.listOne').append(html)
     }
 
-    $('.ListTwo').empty()
-    //This takes the first three results, can be changed later
-    for (let i = 6; i < 12; i++) {
+// Use the GeoLocation-DB API to get the user's city
+restaurantsApp.getCity = async function() {
+    // wait for the result to come back (promise)
+    let location = await $.ajax({
+        url: "https://geolocation-db.com/jsonp",
+        jsonpCallback: "callback",
+        dataType: "jsonp"
+    });
+
+    return location.city;
+}
+
+
+restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
+    
+    if(addedResults==0){
+        $('.restaurantList').empty()
+    }
+    
+    for (let i = addedResults; i < addedResults + 6; i++) {
         let businessID = result.businesses[i].id
         let businessName = result.businesses[i].name
         let businessImage = result.businesses[i].image_url
@@ -142,54 +147,33 @@ restaurantsApp.displayRestaurantDetails = function(result) {
                 </div>
                 </div>`
         //Displays each result to the page
-        $('.listTwo').append(html)
-    } 
-        
+        $('.restaurantList').append(html)
+    }       
 }
 
-restaurantsApp.showMore = function(){
+restaurantsApp.showMore = function(result){
+    let addedResults=0;
     
-    let slideIndex = 1;
-    showDivs(slideIndex);
-
-    function showDivs(n) {
-        let i;
-        let x = $(".restaurantList");
-        console.log(x)
-        if (n > x.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = x.length} ;
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
+    $(window).on("scroll", function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            addedResults=addedResults+6
+            restaurantsApp.displayRestaurantDetails(result, addedResults)
         }
-        x[slideIndex-1].style.display = "grid";
+    });
     }
-    
-    $('button.right').on('click', function(){
-        showDivs(slideIndex += +1)
-    })
-    $('button.left').on('click', function(){
-        showDivs(slideIndex += -1)
-    })
 
-}
-
-restaurantsApp.handleSearch = function (e) {
+restaurantsApp.handleSearch = function () {
+    $('form').on('submit', function(e){
     e.preventDefault();
     let locationInput = $('#locationInput').val().trim(' ');
     let termInput = $('#termInput').val().trim(' ');
-
+    //  Get user city and populate the locationTerm input
     restaurantsApp.getRestaurants(termInput, locationInput);
 }
 
 restaurantsApp.init = async function () {
 
-    restaurantsApp.getRestaurants('Chicken', 'northyork ontario')
-    restaurantsApp.showMore()
-
-    //set up event listener to accept user input
-    $('form').on('submit', restaurantsApp.handleSearch);
-
-    // Get user city and populate the locationTerm input
+    restaurantsApp.handleSearch()
     let userCity = await restaurantsApp.getCity();
     $('#locationInput').val(userCity)
 }
