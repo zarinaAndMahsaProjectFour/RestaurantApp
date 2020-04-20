@@ -52,48 +52,6 @@ restaurantsApp.getReviews=function(result){
     }}
 
 
-restaurantsApp.displayRestaurantDetails = function(result) {
-  
-    $('.ListOne').empty()
-    //This takes the first three results, can be changed later
-    for (let i = 0; i < 6; i++) {
-        let businessID = result.businesses[i].id
-        let businessName = result.businesses[i].name
-        let businessImage = result.businesses[i].image_url
-        let businessRating = result.businesses[i].rating
-        let businessPrice = result.businesses[i].price
-        let businessAddress = result.businesses[i].location.display_address
-        console.log(businessPrice)
-        console.log(result.businesses[i]);
-
-        let priceString = ""
-        if (businessPrice !== undefined) {
-            for (let i = 0; i < businessPrice.length; i++) {
-                priceString += `<i class="fas fa-dollar-sign"></i>`
-            }
-        }
-
-        let ratingString = "";
-        if (businessRating !== undefined) {
-            for (let i = 0; i < parseInt(businessRating); i++) {
-                ratingString += `<i class="fas fa-star"></i>`
-            }
-        }
-
-        let html = `<div>
-                <img src="${businessImage}">
-                <div class="restaurantInfo">
-                <h2>${businessName}</h2>
-                <span>${ratingString}</span>
-                <span>${priceString}</span> 
-                <h3>${businessAddress}</h3>
-                </div>
-                </div>`
-        //Displays each result to the page
-        $('.listOne').append(html)
-    }
-}
-
 // Use the GeoLocation-DB API to get the user's city
 restaurantsApp.getCity = async function() {
     // wait for the result to come back (promise)
