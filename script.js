@@ -81,7 +81,7 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
         let businessAddress = result.businesses[i].location.display_address
         console.log(result.businesses[i]);
 
-        let priceString = ""
+        let priceString = "";
         if (businessPrice !== undefined) {
             
             for (let i = 0; i < businessPrice.length; i++) {
@@ -96,8 +96,15 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
             }
         }
 
-        let html = `<div>
-                <img src="${businessImage}">
+        // Fix images
+        businessImage = businessImage.replace('o.jpg', '300s.jpg')
+        
+        
+
+        let html = `<div class="restaurantWrapper">
+                <div class="imageWrapper">
+                    <img src="${businessImage}">
+                </div>
                 <div class="restaurantInfo">
                 <h2>${businessName}</h2>
                 <span>${ratingString}</span>

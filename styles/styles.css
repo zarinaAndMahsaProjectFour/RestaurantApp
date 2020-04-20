@@ -302,6 +302,13 @@ form button {
           backdrop-filter: sepia(0.5);
 }
 
+.restaurantList .restaurantWrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+}
+
 .restaurantList .restaurantInfo {
   padding: 15px;
 }
@@ -310,6 +317,7 @@ form button {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  height: 100%;
   width: 100%;
 }
 
