@@ -3,6 +3,9 @@ let restaurantsApp = {}
 //Store API key
 restaurantsApp.apiKey = '2-RCWO0-I-9m7PMN2zt0fcZ45itXKXWRfnBQtimCYUjh2skNC9-_CAF_SJdwlTkeymvzhlzSyQFDz0kih-S3Cjz1JIxklzgXrnO-YySwD4ThKeBFlskagdf0JeeVXnYx';
 
+// a place to save reviews so we don't request the same review multiple times
+restaurantsApp.reviews = {}
+
 //Retrieve restaurant ID's 
 restaurantsApp.getRestaurants = (searchTerm, searchLocation) => {
 
@@ -24,32 +27,25 @@ restaurantsApp.getRestaurants = (searchTerm, searchLocation) => {
         }
     }).then(function (result) {
         // Put the results on the page
-        restaurantsApp.displayRestaurantDetails(result, 0)
-        restaurantsApp.getReviews(result)
-        restaurantsApp.showMore(result)
-     
-        })   
-    }
-restaurantsApp.getReviews=function(result){
-    // for each business ID retrieved from businessID array make an ajax call and then push the result in to businessReview array
-    for (let i = 0; i < 6; i++) {
-        let businessID = result.businesses[i].id
-        businessReviews = []
-        $.ajax({
-            url: `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${businessID}/reviews`,
-            method: "GET",
-            headers: {
-            "accept": "application/json",
-            "x-requested-with": "xmlhttprequest",
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": `Bearer ${restaurantsApp.apiKey}`
-            },
-            data: {}
-        }).then(function(result){
-            businessReviews.push(result.reviews)
-            console.log(businessReviews)
-        })
-    }}
+        restaurantsApp.displayRestaurantDetails(result, 0);
+        restaurantsApp.showMore(result);
+    })   
+}
+
+restaurantsApp.getReview = function(businessID){
+
+    return $.ajax({
+        url: `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${businessID}/reviews`,
+        method: "GET",
+        headers: {
+        "accept": "application/json",
+        "x-requested-with": "xmlhttprequest",
+        "Access-Control-Allow-Origin": "*",
+        "Authorization": `Bearer ${restaurantsApp.apiKey}`
+        },
+        data: {}
+    })    
+}
 
 
 // Use the GeoLocation-DB API to get the user's city
@@ -68,6 +64,8 @@ restaurantsApp.getCity = async function() {
 restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
     console.log(result)
     
+    console.log(result)
+    
     if(addedResults==0){
         $('.restaurantList').empty()
     }
@@ -78,9 +76,8 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
         let businessImage = result.businesses[i].image_url
         let businessRating = result.businesses[i].rating
         let businessPrice = result.businesses[i].price
-        console.log(businessPrice)
         let businessAddress = result.businesses[i].location.display_address
-        console.log(result.businesses[i]);
+        let businessUrl = result.businesses[i].url
 
         let priceString = "";
         if (businessPrice !== undefined) {
@@ -100,14 +97,13 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
         // Fix images
         businessImage = businessImage.replace('o.jpg', '300s.jpg')
         
-        
-
         let html = `<div class="restaurantWrapper">
-                <div class="imageWrapper">
-                    <img src="${businessImage}">
+                <div class="imageWrapper" id=${businessID}>
+                    <img src="${businessImage}"/>
+                    <p><i class="fas fa-drumstick-bite"></i></p>
                 </div>
                 <div class="restaurantInfo">
-                <h2>${businessName}</h2>
+                <h2><a href="${businessUrl}">${businessName}</a></h2>
                 <span>${ratingString}</span>
                 <span>${priceString}</span> 
                 <h3>${businessAddress}</h3>
@@ -115,10 +111,12 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
                 </div>`
         //Displays each result to the page
         $('.restaurantList').append(html)
-    }       
+    }
+
+    restaurantsApp.handleHover();
 }
 
-restaurantsApp.showMore = function(result){
+restaurantsApp.showMore = function(result) {
     let addedResults=0;
     
     $(window).on("scroll", function() {
@@ -126,6 +124,46 @@ restaurantsApp.showMore = function(result){
             addedResults=addedResults+6
             restaurantsApp.displayRestaurantDetails(result, addedResults)
         }
+    });
+}
+
+restaurantsApp.handleHover = function() {
+    $('.imageWrapper').off('mouseover').on('mouseover', async function(e) {
+
+        //ignore events that fire on the div
+        if (e.target.parentNode.id === "") {
+            return;
+        }
+
+        let businessID = e.target.parentNode.id;
+        let reviewHtml = "";
+        if (businessID in restaurantsApp.reviews) {
+            // We have already searched for this review, simply use it
+            reviewHtml = restaurantsApp.reviews[businessID];
+        } else {
+            let reviewInfo = await restaurantsApp.getReview(businessID);
+            if (reviewInfo.reviews.length > 0) {
+                // If there are any reviews, get the raint and text of the first review
+                let ratingText = reviewInfo.reviews[0].text;
+                let rating = reviewInfo.reviews[0].rating; 
+                let ratingString = "";
+                if (rating !== undefined) {
+                    for(let i = 0; i < parseInt(rating); i++) {
+                        ratingString += `<i class="fas fa-star"></i>`
+                    }
+                }
+
+                reviewHtml = `
+                <span>${ratingString}</span>
+                ${ratingText}
+                `
+
+                restaurantsApp.reviews[businessID] = reviewHtml;
+            }
+        }
+
+        let reviewParagraph = $(e.target.parentNode.children[1]);
+        reviewParagraph.html(reviewHtml);
     });
 }
 
@@ -140,7 +178,7 @@ restaurantsApp.handleSearch = function () {
 
 restaurantsApp.init = async function () {
 
-    restaurantsApp.handleSearch()
+    restaurantsApp.handleSearch();
     let userCity = await restaurantsApp.getCity();
     $('#locationInput').val(userCity)
 }
