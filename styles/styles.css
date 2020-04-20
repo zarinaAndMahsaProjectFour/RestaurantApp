@@ -249,7 +249,7 @@ header h1 {
 }
 
 form {
-  padding: 10px;
+  padding: 20px;
   text-align: center;
   -webkit-backdrop-filter: sepia(0.5);
           backdrop-filter: sepia(0.5);
@@ -257,6 +257,7 @@ form {
 }
 
 form input {
+  padding: 10px;
   display: block;
   width: 50%;
   margin: 10px auto;
@@ -301,6 +302,10 @@ form button {
           backdrop-filter: sepia(0.5);
 }
 
+.restaurantList .restaurantInfo {
+  padding: 15px;
+}
+
 .restaurantList img {
   display: block;
   margin-left: auto;
@@ -323,4 +328,6 @@ form button {
   font-family: 'Open Sans', sans-serif;
   color: #54494B;
   size: 1rem;
+  display: block;
+  padding: 5px 0;
 }
