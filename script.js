@@ -66,8 +66,9 @@ restaurantsApp.getCity = async function() {
 restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
     
     if(addedResults==0){
-    $('.restaurantList').empty()
-    //This takes the first three results, can be changed later
+        $('.restaurantList').empty()
+    }
+    
     for (let i = addedResults; i < addedResults + 6; i++) {
         let businessID = result.businesses[i].id
         let businessName = result.businesses[i].name
@@ -85,26 +86,7 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
                 </div>`
         //Displays each result to the page
         $('.restaurantList').append(html)
-    }}
-    else{
-       for (let i = addedResults; i < addedResults + 6; i++) {
-        let businessID = result.businesses[i].id
-        let businessName = result.businesses[i].name
-        let businessImage = result.businesses[i].image_url
-        let businessRating = result.businesses[i].rating
-        let businessPrice = result.businesses[i].price
-        let businessAddress = result.businesses[i].location.display_address
-
-        let html = `<div>
-                <img src="${businessImage}">
-                <h2>${businessName}</h2>
-                <span>${businessRating}</span>
-                <span><i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i></span> 
-                <h3>${businessAddress}</h3>
-                </div>`
-        //Displays each result to the page
-        $('.restaurantList').append(html)
-    }}       
+    }       
 }
 
 restaurantsApp.showMore = function(result){
