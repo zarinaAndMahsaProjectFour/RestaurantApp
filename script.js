@@ -142,8 +142,6 @@ restaurantsApp.handleHover = function() {
                 // If there are any reviews, get the raint and text of the first review
                 let ratingText = reviewInfo.reviews[0].text;
                 let rating = reviewInfo.reviews[0].rating; 
-                console.log(rating);
-                console.log(parseInt(rating));
                 let ratingString = "";
                 if (rating !== undefined) {
                     for(let i = 0; i < parseInt(rating); i++) {
