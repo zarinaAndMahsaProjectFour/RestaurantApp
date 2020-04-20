@@ -168,7 +168,6 @@ restaurantsApp.handleSearch = function () {
         e.preventDefault();
         let locationInput = $('#locationInput').val().trim(' ');
         let termInput = $('#termInput').val().trim(' ');
-        //  Get user city and populate the locationTerm input
         restaurantsApp.getRestaurants(termInput, locationInput);
     });
 }
