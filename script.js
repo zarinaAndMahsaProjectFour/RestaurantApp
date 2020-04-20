@@ -63,6 +63,8 @@ restaurantsApp.getCity = async function() {
 
 restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
     
+    console.log(result)
+    
     if(addedResults==0){
         $('.restaurantList').empty()
     }
@@ -74,6 +76,7 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
         let businessRating = result.businesses[i].rating
         let businessPrice = result.businesses[i].price
         let businessAddress = result.businesses[i].location.display_address
+        let businessUrl = result.businesses[i].url
 
         let priceString = "";
         if (businessPrice !== undefined) {
@@ -99,7 +102,7 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
                     <p><i class="fas fa-drumstick-bite"></i></p>
                 </div>
                 <div class="restaurantInfo">
-                <h2>${businessName}</h2>
+                <h2><a href="${businessUrl}">${businessName}</a></h2>
                 <span>${ratingString}</span>
                 <span>${priceString}</span> 
                 <h3>${businessAddress}</h3>

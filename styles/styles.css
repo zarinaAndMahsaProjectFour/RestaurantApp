@@ -354,7 +354,7 @@ form button {
           filter: blur(5px) grayscale(1) brightness(50%);
 }
 
-.restaurantList h2 {
+.restaurantList h2 a {
   font-family: 'Lobster', cursive;
   font-size: 2rem;
   color: #F22B29;
