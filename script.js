@@ -67,6 +67,8 @@ restaurantsApp.getCity = async function() {
 
 restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
     
+    console.log(result)
+    
     if(addedResults==0){
         $('.restaurantList').empty()
     }
@@ -77,9 +79,8 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
         let businessImage = result.businesses[i].image_url
         let businessRating = result.businesses[i].rating
         let businessPrice = result.businesses[i].price
-        console.log(businessPrice)
         let businessAddress = result.businesses[i].location.display_address
-        console.log(result.businesses[i]);
+        let businessUrl=result.businesses[i].url
 
         let priceString = "";
         if (businessPrice !== undefined) {
@@ -99,14 +100,13 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
         // Fix images
         businessImage = businessImage.replace('o.jpg', '300s.jpg')
         
-        
 
         let html = `<div class="restaurantWrapper">
                 <div class="imageWrapper">
                     <img src="${businessImage}">
                 </div>
                 <div class="restaurantInfo">
-                <h2>${businessName}</h2>
+                <h2><a href="${businessUrl}">${businessName}</a></h2>
                 <span>${ratingString}</span>
                 <span>${priceString}</span> 
                 <h3>${businessAddress}</h3>
