@@ -1,17 +1,17 @@
-//Create a namespace
+// Create a namespace
 let restaurantsApp = {}
-//Store API key
+// Store API key
 restaurantsApp.apiKey = '2-RCWO0-I-9m7PMN2zt0fcZ45itXKXWRfnBQtimCYUjh2skNC9-_CAF_SJdwlTkeymvzhlzSyQFDz0kih-S3Cjz1JIxklzgXrnO-YySwD4ThKeBFlskagdf0JeeVXnYx';
 
-// a place to save reviews so we don't request the same review multiple times
+// A place to save reviews so we don't request the same review multiple times
 restaurantsApp.reviews = {}
 
-//Retrieve restaurant ID's 
+// Retrieve restaurant ID's 
 restaurantsApp.getRestaurants = (searchTerm, searchLocation) => {
 
     
     $.ajax({
-        //We need the first link in order to bypass CORS policy issues
+        // We need the first link in order to bypass CORS policy issues
         url: "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search",
         method: "GET",
         headers: {
@@ -50,7 +50,7 @@ restaurantsApp.getReview = function(businessID){
 
 // Use the GeoLocation-DB API to get the user's city
 restaurantsApp.getCity = async function() {
-    // wait for the result to come back (promise)
+    // Wait for the result to come back (promise)
     let location = await $.ajax({
         url: "https://geolocation-db.com/jsonp",
         jsonpCallback: "callback",
@@ -60,9 +60,9 @@ restaurantsApp.getCity = async function() {
     return location.city;
 }
 
-
+// Place the results from the Yelp API on the page
 restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
-   
+
     if(addedResults==0){
         $('.restaurantList').empty()
     }
@@ -91,26 +91,28 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
             }
         }
 
-        // Fix images
+        // Uniformly resize images
         businessImage = businessImage.replace('o.jpg', '300s.jpg')
         
         let html = `<div class="restaurantWrapper">
                 <div class="imageWrapper" id=${businessID}>
-                    <img src="${businessImage}"/>
-                    <p><i class="fas fa-drumstick-bite"></i></p>
+                    <a href="#"><img src="${businessImage}"/></a>
+                    <p><i class="fas fa-drumstick-bite" aria-hidden="true"></i></p>
                 </div>
                 <div class="restaurantInfo">
                 <h2><a href="${businessUrl}">${businessName}</a></h2>
-                <span>${ratingString}</span>
-                <span>${priceString}</span> 
+                <span class="sr-only">Rating:${businessRating}</span>
+                <span aria-hidden="true">${ratingString}</span>
+                <span class="sr-only">Price:${businessPrice}</span>
+                <span aria-hidden="true">${priceString}</span> 
                 <h3>${businessAddress}</h3>
                 </div>
                 </div>`
-        //Displays each result to the page
+        // Displays each result to the page
         $('.restaurantList').append(html)
     }
 
-    restaurantsApp.handleHover();
+    restaurantsApp.handleHoverFocus();
 }
 
 restaurantsApp.showMore = function(result) {
@@ -124,51 +126,74 @@ restaurantsApp.showMore = function(result) {
     });
 }
 
-restaurantsApp.handleHover = function() {
-    $('.imageWrapper').off('mouseover').on('mouseover', async function(e) {
+restaurantsApp.getReviewHtml = async function (businessID) {
 
-        //ignore events that fire on the div
-        if (e.target.parentNode.id === "") {
-            return;
-        }
-
-        let businessID = e.target.parentNode.id;
-        let reviewHtml = "";
-        if (businessID in restaurantsApp.reviews) {
-            // We have already searched for this review, simply use it
-            reviewHtml = restaurantsApp.reviews[businessID];
-        } else {
-            let reviewInfo = await restaurantsApp.getReview(businessID);
-            if (reviewInfo.reviews.length > 0) {
-                // If there are any reviews, get the raint and text of the first review
-                let ratingText = reviewInfo.reviews[0].text;
-                let rating = reviewInfo.reviews[0].rating; 
-                let ratingString = "";
-                if (rating !== undefined) {
-                    for(let i = 0; i < parseInt(rating); i++) {
-                        ratingString += `<i class="fas fa-star"></i>`
-                    }
+    
+    let reviewHtml = "";
+    if (businessID in restaurantsApp.reviews) {
+        // We have already searched for this review, simply use it
+        reviewHtml = restaurantsApp.reviews[businessID];
+    } else {
+        let reviewInfo = await restaurantsApp.getReview(businessID);
+        if (reviewInfo.reviews.length > 0) {
+            // If there are any reviews, get the raint and text of the first review
+            let ratingText = reviewInfo.reviews[0].text;
+            let rating = reviewInfo.reviews[0].rating;
+            let ratingString = "";
+            if (rating !== undefined) {
+                for (let i = 0; i < parseInt(rating); i++) {
+                    ratingString += `<i class="fas fa-star"></i>`
                 }
+            }
 
-                reviewHtml = `
+            reviewHtml = `
                 <span>${ratingString}</span>
                 ${ratingText}
                 `
 
-                restaurantsApp.reviews[businessID] = reviewHtml;
-            }
+            restaurantsApp.reviews[businessID] = reviewHtml;
         }
+    }
 
+    return reviewHtml
+
+}
+//Set up event handlers on hover and on focus of images
+restaurantsApp.handleHoverFocus = function() {
+    $('.imageWrapper').off('mouseover').on('mouseover', async function(e) {
+        //ignore events that fire on the div
+        let businessID = e.target.parentNode.parentNode.id;
+        if (businessID === "") {
+            return;
+        }
+        //retrieve review HTML and display on page
+        let reviewHtml = await restaurantsApp.getReviewHtml(businessID);
+        let reviewParagraph = $(e.target.parentNode.parentNode.children[1]);
+        reviewParagraph.html(reviewHtml);
+    });
+    
+    $('.imageWrapper a').off('focus').on('focus', async function(e) {
+
+        let businessID = e.target.parentNode.id;
+        console.log(e.target.parentNode)
+        console.log(businessID);
+        if (businessID === "") {
+            return;
+        }
+        //Retrieve review HTML and display on page
+        let reviewHtml = await restaurantsApp.getReviewHtml(businessID);
+        console.log(reviewHtml);
         let reviewParagraph = $(e.target.parentNode.children[1]);
         reviewParagraph.html(reviewHtml);
     });
 }
-
+//Set up event handler to store user input on submit 
 restaurantsApp.handleSearch = function () {
         $('form').on('submit', function(e){
         e.preventDefault();
         let locationInput = $('#locationInput').val().trim(' ');
         let termInput = $('#termInput').val().trim(' ');
+
         restaurantsApp.getRestaurants(termInput, locationInput);
     });
 }
