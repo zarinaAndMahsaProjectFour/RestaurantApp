@@ -19,12 +19,16 @@
     }
 }
 @media(max-width:650px){
+    form{
+        button{
+            width: 50%;
+        }
+    }
     .restaurantList{ 
         .imageWrapper p {
             font-size:0.9rem;
         }
     }
-
 }
 @media(max-width:580px){
     .wrapper{
@@ -33,11 +37,6 @@
     header{
         h1{
             font-size: 4rem;
-        }
-    }
-    form{
-        button{
-            font-size: 1rem;
         }
     }
     .restaurantList{ 
@@ -51,10 +50,13 @@
         }
     }
 }
-@media(max-width:480px){
+@media(max-width:375px){
+    .wrapper{
+        width: 95%;
+    }
     .restaurantList{ 
         .imageWrapper p {
-            font-size:0.5rem;
+            font-size:0.85rem;
         }
     }
 }

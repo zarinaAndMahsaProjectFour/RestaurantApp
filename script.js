@@ -62,10 +62,7 @@ restaurantsApp.getCity = async function() {
 
 
 restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
-    console.log(result)
-    
-    console.log(result)
-    
+   
     if(addedResults==0){
         $('.restaurantList').empty()
     }
