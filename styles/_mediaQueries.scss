@@ -1,0 +1,62 @@
+@media(max-width:850px){
+    .wrapper{
+        width: 85%;
+    }
+    header{
+        h1{
+            font-size: 4rem;
+        }
+    }
+    form{
+        button{
+            font-size: 1.5rem;
+        }
+    }
+    .restaurantList{ 
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+}
+@media(max-width:650px){
+    form{
+        button{
+            width: 50%;
+        }
+    }
+    .restaurantList{ 
+        .imageWrapper p {
+            font-size:0.9rem;
+        }
+    }
+}
+@media(max-width:580px){
+    .wrapper{
+        width: 90%;
+    }
+    header{
+        h1{
+            font-size: 4rem;
+        }
+    }
+    .restaurantList{ 
+        width: 85%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        .restaurantWrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}
+@media(max-width:375px){
+    .wrapper{
+        width: 95%;
+    }
+    .restaurantList{ 
+        .imageWrapper p {
+            font-size:0.85rem;
+        }
+    }
+}

@@ -8,7 +8,7 @@ body {
 }
 .wrapper {
     max-width: 1200px;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
 }
 header {
@@ -62,10 +62,8 @@ form {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    column-gap: 10px;
+    column-gap: 20px;
     row-gap: 10px;
-    width: auto;
-    transition: width 2s;
 
     div {
         backdrop-filter: sepia(0.5)
@@ -142,3 +140,4 @@ form {
         padding: 5px 0;
     }
 }
+@import './mediaQueries'
