@@ -416,7 +416,7 @@ form button {
 
 @media (max-width: 580px) {
   .wrapper {
-    width: 90%;
+    width: 85%;
   }
   header h1 {
     font-size: 4rem;
@@ -429,12 +429,6 @@ form button {
         grid-template-columns: repeat(1, 1fr);
     -ms-grid-rows: (1fr)[3];
         grid-template-rows: repeat(3, 1fr);
-  }
-  .restaurantList .restaurantWrapper {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: 1fr 1fr;
-        grid-template-columns: 1fr 1fr;
   }
 }
 
