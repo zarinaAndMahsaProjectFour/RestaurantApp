@@ -375,6 +375,12 @@ form button {
   padding: 5px 0;
 }
 
+@media (max-width: 1000px) {
+  .restaurantList .imageWrapper p {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 850px) {
   .wrapper {
     width: 85%;
@@ -406,7 +412,7 @@ form button {
 
 @media (max-width: 580px) {
   .wrapper {
-    width: 90%;
+    width: 85%;
   }
   header h1 {
     font-size: 4rem;
@@ -420,11 +426,8 @@ form button {
     -ms-grid-rows: (1fr)[3];
         grid-template-rows: repeat(3, 1fr);
   }
-  .restaurantList .restaurantWrapper {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: 1fr 1fr;
-        grid-template-columns: 1fr 1fr;
+  .restaurantList .imageWrapper p {
+    top: 50%;
   }
 }
 
