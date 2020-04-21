@@ -231,7 +231,7 @@ body {
 
 .wrapper {
   max-width: 1200px;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -293,12 +293,9 @@ form button {
       grid-template-columns: repeat(3, 1fr);
   -ms-grid-rows: (1fr)[2];
       grid-template-rows: repeat(2, 1fr);
-  -webkit-column-gap: 10px;
-          column-gap: 10px;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
   row-gap: 10px;
-  width: auto;
-  -webkit-transition: width 2s;
-  transition: width 2s;
 }
 
 .restaurantList div {
@@ -320,6 +317,8 @@ form button {
 .restaurantList .imageWrapper {
   overflow: hidden;
   position: relative;
+  border: solid 0.5px #EF8354;
+  border-radius: 50px 0 50px 0;
 }
 
 .restaurantList .imageWrapper p {
@@ -376,4 +375,63 @@ form button {
   size: 1rem;
   display: block;
   padding: 5px 0;
+}
+
+@media (max-width: 850px) {
+  .wrapper {
+    width: 85%;
+  }
+  header h1 {
+    font-size: 4rem;
+  }
+  form button {
+    font-size: 1.5rem;
+  }
+  .restaurantList {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+    -ms-grid-rows: (1fr)[3];
+        grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .restaurantList .imageWrapper p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .wrapper {
+    width: 90%;
+  }
+  header h1 {
+    font-size: 4rem;
+  }
+  form button {
+    font-size: 1rem;
+  }
+  .restaurantList {
+    width: 85%;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[1];
+        grid-template-columns: repeat(1, 1fr);
+    -ms-grid-rows: (1fr)[3];
+        grid-template-rows: repeat(3, 1fr);
+  }
+  .restaurantList .restaurantWrapper {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .restaurantList .imageWrapper p {
+    font-size: 0.5rem;
+  }
 }
