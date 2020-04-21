@@ -90,10 +90,15 @@ form {
         transform: translateX(-50%) translateY(-50%);
         font-family: 'Open Sans', sans-serif;
         color:white;
+        line-height: 1.5;
         display: none;
     }
 
-    .imageWrapper:hover p {
+    .imageWrapper a:hover {
+        cursor: default;
+    }
+
+    .imageWrapper:hover p, .imageWrapper a:focus + p {
         display: block;
     }
 
@@ -110,16 +115,20 @@ form {
         width:100%;
     }
 
-    .imageWrapper:hover img {
+    .imageWrapper:hover img, .imageWrapper a:focus img {
         filter: blur(5px) grayscale(1) brightness(50%);
     }
 
     h2 {
-        a{
-        font-family: 'Lobster', cursive;
-        font-size: 2rem;
-        color: #F22B29;
-        text-align: center;
+        a {
+            font-family: 'Lobster', cursive;
+            font-size: 2rem;
+            color: #F22B29;
+            text-align: center;
+            text-decoration: none;
+        }
+        a:hover, a:focus {
+            color:#54494B;
         }
     }
 

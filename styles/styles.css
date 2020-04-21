@@ -327,10 +327,15 @@ form button {
           transform: translateX(-50%) translateY(-50%);
   font-family: 'Open Sans', sans-serif;
   color: white;
+  line-height: 1.5;
   display: none;
 }
 
-.restaurantList .imageWrapper:hover p {
+.restaurantList .imageWrapper a:hover {
+  cursor: default;
+}
+
+.restaurantList .imageWrapper:hover p, .restaurantList .imageWrapper a:focus + p {
   display: block;
 }
 
@@ -347,7 +352,7 @@ form button {
   width: 100%;
 }
 
-.restaurantList .imageWrapper:hover img {
+.restaurantList .imageWrapper:hover img, .restaurantList .imageWrapper a:focus img {
   -webkit-filter: blur(5px) grayscale(1) brightness(50%);
           filter: blur(5px) grayscale(1) brightness(50%);
 }
@@ -357,6 +362,11 @@ form button {
   font-size: 2rem;
   color: #F22B29;
   text-align: center;
+  text-decoration: none;
+}
+
+.restaurantList h2 a:hover, .restaurantList h2 a:focus {
+  color: #54494B;
 }
 
 .restaurantList .fa-star {
