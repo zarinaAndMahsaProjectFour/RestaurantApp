@@ -1,57 +1,75 @@
-@media(max-width:850px){
-    .wrapper{
+@media only screen and (max-width: 1000px) {
+    .restaurantList { 
+        .imageWrapper p {
+            line-height: 1;
+        }
+    }    
+}
+
+@media only screen and (max-width: 850px) {
+    .wrapper {
         width: 85%;
     }
-    header{
-        h1{
+
+    header {
+        h1 {
             font-size: 4rem;
         }
     }
-    form{
-        button{
+
+    form {
+        button {
             font-size: 1.5rem;
         }
     }
-    .restaurantList{ 
+
+    .restaurantList { 
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, 1fr);
-    }
+    }    
 }
-@media(max-width:650px){
-    form{
-        button{
+
+@media only screen and (max-width: 650px) {
+    form {
+        button {
             width: 50%;
         }
     }
-    .restaurantList{ 
+
+    .restaurantList { 
         .imageWrapper p {
             font-size:0.9rem;
         }
     }
 }
-@media(max-width:580px){
-    .wrapper{
+
+@media only screen and (max-width: 580px) {
+    .wrapper {
         width: 85%;
     }
-    header{
-        h1{
+
+    header {
+        h1 {
             font-size: 4rem;
         }
     }
-    .restaurantList{ 
-        width: 85%;
+    
+    .restaurantList { 
         display: grid;
+        width: 85%;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(3, 1fr);
+        text-align: center;
     }
 }
 
-@media(max-width:375px){
-    .wrapper{
+@media only screen and (max-width: 375px) {
+    .wrapper {
         width: 95%;
     }
-    .restaurantList{ 
+
+    .restaurantList { 
         .imageWrapper p {
             font-size:0.85rem;
         }

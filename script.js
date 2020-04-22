@@ -175,14 +175,11 @@ restaurantsApp.handleHoverFocus = function() {
     $('.imageWrapper a').off('focus').on('focus', async function(e) {
 
         let businessID = e.target.parentNode.id;
-        console.log(e.target.parentNode)
-        console.log(businessID);
         if (businessID === "") {
             return;
         }
         //Retrieve review HTML and display on page
         let reviewHtml = await restaurantsApp.getReviewHtml(businessID);
-        console.log(reviewHtml);
         let reviewParagraph = $(e.target.parentNode.children[1]);
         reviewParagraph.html(reviewHtml);
     });
