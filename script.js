@@ -96,7 +96,7 @@ restaurantsApp.displayRestaurantDetails = function(result, addedResults) {
         
         let html = `<div class="restaurantWrapper">
                 <div class="imageWrapper" id=${businessID}>
-                    <a href="#"><img src="${businessImage}"/></a>
+                    <a href="#"><img aria-hidden="true" src="${businessImage}"/></a>
                     <p><i class="fas fa-drumstick-bite" aria-hidden="true"></i></p>
                 </div>
                 <div class="restaurantInfo">
